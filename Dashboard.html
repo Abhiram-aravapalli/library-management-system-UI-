@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .dashboard-container {
+            display: flex;
+            gap: 20px;
+        }
+        .login-box {
+            display: flex;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            align-items: center;
+            gap: 10px;
+        }
+        .login-box img {
+            width: 100px;
+            height: auto;
+            border-radius: 8px;
+        }
+        .login-content {
+            flex: 1;
+        }
+        .login-box h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+        .login-box label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        .login-box input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .login-box button {
+            width: 100%;
+            padding: 10px;
+            background-color:  #4CAF50;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-box button:hover {
+            background-color: #65f03a;
+        }
+    </style>
+    <script>
+        function handleLogin(role) {
+            const username = document.getElementById(`${role}-username`).value;
+            const password = document.getElementById(`${role}-password`).value;
+
+            // Validate login (default password is "")
+            if (password === "123") {
+                if (role === "admin") {
+                    window.location.href = "adminDashboard.html"; // Redirect to admin page
+                } else if (role === "user") {
+                    window.location.href = "userdashboard.html"; // Redirect to user page
+                }
+            } else {
+                alert("Invalid password. Please try again.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Admin Login Form -->
+        <div class="login-box">
+            <img src="https://i0.wp.com/bigalmanack.com/wp-content/uploads/2018/04/entrepreneur-admin.jpg?fit=960%2C606&ssl=1" alt="Admin Image">
+            <div class="login-content">
+                <h2>Admin dashboard Login</h2>
+                <form onsubmit="event.preventDefault(); handleLogin('admin');">
+                    <label for="admin-username">Username</label>
+                    <input type="text" id="admin-username" name="admin-username" placeholder="Enter Admin Username" required>
+
+                    <label for="admin-password">Password</label>
+                    <input type="password" id="admin-password" name="admin-password" placeholder="Enter admin password " required>
+
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- User Login Form -->
+        <div class="login-box">
+            <img src="https://thumbs.dreamstime.com/b/word-user-was-created-wooden-cubes-technology-life-friendly-close-up-220090514.jpg" alt="User Image">
+            <div class="login-content">
+                <h2>User dashboard Login</h2>
+                <form onsubmit="event.preventDefault(); handleLogin('user');">
+                    <label for="user-username">Username</label>
+                    <input type="text" id="user-username" name="user-username" placeholder="Enter User Username" required>
+
+                    <label for="user-password">Password</label>
+                    <input type="password" id="user-password" name="user-password"  placeholder="Enter user password" required>
+
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

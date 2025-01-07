@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Library Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", serif;
+}
+
+body {
+    background-color: #e8f5e9;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Header styling */
+.header {
+    background-color: #388E3C;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 2rem;
+}
+
+/* Main dashboard content styling */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.card {
+    background-color: #E8F5E9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    width: 80%;
+}
+
+.card h3 {
+    color: #388E3C;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 1rem;
+    color: #333;
+}
+
+.card .button {
+    background-color: #388E3C;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.card .button:hover {
+    background-color: #2C6B2F;
+}
+
+.card ul {
+    list-style-type: none;
+}
+
+.card ul li {
+    padding: 5px 0;
+    font-size: 1rem;
+}
+
+/* Table for borrowed books */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #388E3C;
+    color: #fff;
+}
+
+table tr:hover {
+    background-color: #f5f5f5;
+}
+
+table td a {
+    color: #388E3C;
+    text-decoration: none;
+}
+
+table td a:hover {
+    color: #2C6B2F;
+}
+
+/* Footer Styling */
+.footer {
+    background-color: #388E3C;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    margin-top: auto;
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Welcome to Your Dashboard</h1>
+        <p>Manage your library activities</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        
+        <!-- Profile Information Card -->
+        <div class="card">
+            <h3>Profile Information</h3>
+            <p><strong>Name:</strong> John Doe</p>
+            <p><strong>Email:</strong> john.doe@email.com</p>
+            <p><strong>Status:</strong> Active Member</p>
+            <button class="button" onclick="updateProfile()">Update Profile</button>
+        </div>
+
+        <!-- Books Borrowed Card -->
+        <div class="card">
+            <h3>Your Borrowed Books</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Book Title</th>
+                        <th>Author</th>
+                        <th>Return Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>The Great Gatsby</td>
+                        <td>F. Scott Fitzgerald</td>
+                        <td>2025-01-15</td>
+                        <td><a href="#" onclick="returnBook('The Great Gatsby')">Return</a></td>
+                    </tr>
+                    <tr>
+                        <td>To Kill a Mockingbird</td>
+                        <td>Harper Lee</td>
+                        <td>2025-01-20</td>
+                        <td><a href="#" onclick="returnBook('To Kill a Mockingbird')">Return</a></td>
+                    </tr>
+                    <!-- More borrowed books can be added here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Wishlist Card -->
+        <div class="card">
+            <h3>Your Wishlist</h3>
+            <ul>
+                <li>The Catcher in the Rye</li>
+                <li>1984</li>
+                <li>Moby Dick</li>
+            </ul>
+            <button class="button" onclick="viewMoreWishlist()">View More</button>
+        </div>
+
+        <!-- Fines/Fees Card -->
+        <div class="card">
+            <h3>Your Fines/Fees</h3>
+            <p>No fines at the moment. Keep up the good work!</p>
+            <button class="button" onclick="payFees()">Pay Fees</button>
+        </div>
+
+        <!-- Search/Explore Books -->
+        <div class="card">
+            <h3>Search for Books</h3>
+            <input type="text" id="searchInput" placeholder="Search for books..." style="width: 100%; padding: 10px; border-radius: 5px;">
+            <button class="button" onclick="searchBooks()">Search</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 Library Management System. All rights reserved.</p>
+    </div>
+
+    <script>
+        // Function to handle profile update
+        function updateProfile() {
+            alert("Profile update functionality will be implemented here.");
+        }
+
+        // Function to handle book return
+        function returnBook(bookTitle) {
+            alert("You are returning: " + bookTitle);
+            // Here, you would typically send a request to the server to update the book's status
+        }
+
+        // Function to view more books from the wishlist
+        function viewMoreWishlist() {
+            alert("Redirecting to more books in the wishlist.");
+            // In a real application, this could link to a wishlist page or load more books dynamically
+        }
+
+        // Function to handle fee payments
+        function payFees() {
+            alert("Redirecting to the fee payment page.");
+            // Here, you would typically redirect the user to the payment gateway or handle the fee processing
+        }
+
+        // Function to handle book search
+        function searchBooks() {
+            var query = document.getElementById('searchInput').value;
+            if (query) {
+                alert("Searching for: " + query);
+                // Here, you would typically make an API call to search for books based on the query
+            } else {
+                alert("Please enter a book title or author to search.");
+            }
+        }
+    </script>
+</body>
+</html>
